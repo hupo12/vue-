@@ -9,6 +9,7 @@ import ShopcarContainer from './components/tabbar/ShopcarContainer.vue'
 
 var router=new VueRouter({
     routes:[
+        {path:'/',redirect:"/home"}, //重定向.默认页面刷新,路径为/时页面时/home指向的组件的页面
         {path:'/home',component:HomeContainer},
         {path:'/member',component:MemberContainer},
         {path:'/shopcar',component:SearchContainer},
