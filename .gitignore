@@ -1,0 +1,5 @@
+node_modules
+.idea
+.vscode
+.git
+# 忽略以上这些后缀名的文件
