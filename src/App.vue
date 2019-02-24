@@ -4,7 +4,9 @@
         <mt-header fixed title="黑马程序员·Vue项目"></mt-header>
         
         <!-- 中间content区域 -->
-         <router-view ></router-view>
+				<transition>
+				      <router-view ></router-view>
+				</transition>
         <!-- 底部Tabbar区域 -->
         <nav class="mui-bar mui-bar-tab">
 			<router-link class="mui-tab-item" to="/home">
@@ -40,5 +42,19 @@ export default {
   .app-container{
       padding-top: 40px;
       padding-bottom: 50px;
+			overflow: hidden; 
   }
+	.v-enter{
+		opacity: 0;
+    transform:translateX(100%);
+	}
+	.v-leave-to{
+		transform:translateX(-100%);
+		opacity: 0;
+		position: absolute;
+	}
+	.v-enter-active,
+	.v-leave-active{
+		transition:all 1s ease;
+	}
 </style>

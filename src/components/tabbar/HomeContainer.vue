@@ -3,7 +3,7 @@
         <!-- 轮播图 -->
         <mt-swipe :auto="4000">
             <!-- 遍历获取到的图片的数据 -->
-            <mt-swipe-item v-for="item in dataArr" :key="item.url">
+            <mt-swipe-item v-for="item in dataArr" :key="item.id">
                 <img :src="item.img" alt="">
             </mt-swipe-item>
         </mt-swipe>
