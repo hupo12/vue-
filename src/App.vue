@@ -38,20 +38,20 @@ export default {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
   .app-container{
       padding-top: 40px;
       padding-bottom: 50px;
-			overflow: hidden; 
+			overflow: hidden; //去掉横向的滚动条
   }
 	.v-enter{
 		opacity: 0;
     transform:translateX(100%);
 	}
 	.v-leave-to{
-		transform:translateX(-100%);
+		transform:translateX(-100%); //向左离开
 		opacity: 0;
-		position: absolute;
+		position: absolute;  //解决抖动问题
 	}
 	.v-enter-active,
 	.v-leave-active{
