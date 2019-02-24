@@ -37,6 +37,8 @@ module.exports = {
     ] //所有第三方模块的 匹配规则
   },
   resolve:{ //修改vue被导入时的包的路径
+    //如果想在引入文件的时候省略后缀名,那么可以这样设置,前提是省略的后缀名都包含在这个数组中.
+    extensions:['.js','.vue','.json','.css'], 
     alias:{
       "vue$":"vue/dist/vue.js"
     }
