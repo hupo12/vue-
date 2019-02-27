@@ -1,8 +1,10 @@
 <template>
     <div class="app-container">
         <!-- 顶部Header区域 -->
-        <mt-header fixed title="黑马程序员·Vue项目"></mt-header>
-        
+        <mt-header fixed title="Vue项目">
+					<div slot="left" @click="fan" v-show="$route.path=='/home'?false:true">返回</div>
+				</mt-header>
+         <!-- v-show="$router.path=='home'?false:true" -->
         <!-- 中间content区域 -->
 				<transition>
 				      <router-view ></router-view>
@@ -34,7 +36,11 @@
 
 <script>
 export default {
-    
+    methods:{
+			fan(){
+				this.$router.go(-1);
+			}
+		}
 }
 </script>
 
