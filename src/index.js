@@ -3,6 +3,106 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
+// 注册vuex
+import Vuex from 'vuex'
+Vue.use(Vuex)
+//每次刷新页面先将本地存储中的数据获取,存储到car中
+var car=JSON.parse(localStorage.getItem('car')||'[]');
+
+var store=new Vuex.Store({
+  state:{  //this.$store.state.***
+    car:car   //将购物车中商品的数据存储在这里,存储形式:{商品的id:id,商品数量:count,商品单价:price,selected:false/true}
+  },
+  mutations:{ //this.$store.commit('***')
+  //将添加到购物车的商品信息存储起来
+      addToCar(state,obj){
+        var flag=false;
+        state.car.some(item=>{
+          if(item.id==obj.id){
+            item.count+=parseInt(obj.count);
+              flag=true;
+              return true;
+          }
+        })
+        if(!flag){
+          state.car.push(obj);
+        }
+        //每次添加到购物车之后再存储到本地,防止数据流失
+        localStorage.setItem('car',JSON.stringify( state.car));
+      },
+      //点击加减时数据变化
+      uploadGoodsInfo(state,goodsinfos){
+        state.car.forEach(item=>{
+          if(item.id==goodsinfos.id){
+            item.count=goodsinfos.count;
+            return true
+          }
+        })
+        localStorage.setItem('car',JSON.stringify(state.car));
+      },
+      //根据id删除商品在本地的存储
+      delgoods(state,id){
+          state.car.forEach((item,index)=>{
+            if(item.id==id){
+              state.car.splice(index,1);
+              return true
+            }
+          })
+        localStorage.setItem('car',JSON.stringify(state.car)); 
+      },
+      //实时更新商品是否被选中的状态
+      updateStatus(state,info){
+        state.car.forEach(item=>{
+          if(item.id==info.id){
+            item.selected=info.selected;
+          }
+        })
+        localStorage.setItem('car',JSON.stringify(state.car)); 
+      }
+  },
+  getters:{  //this.$store.getters.***
+      getAllCount(state){
+        var c=0;
+        state.car.forEach(item=>{
+          c+=parseInt(item.count);
+          // console.log(item.count);
+        })
+        // console.log(c);
+        return c;
+      },
+      setCarCount(state){
+        var n={};
+        state.car.forEach(item=>{
+          n[item.id]=item.count;
+        })
+        return n;  //这个n里面的每一项都是以商品的id为属性名,数量count为属性值
+      },
+      //以商品id为属性名,商品的选中状态为属性值
+      getStatus(state){
+        var m={};
+        state.car.forEach(item=>{
+          m[item.id]=item.selected;
+        })
+        return m;
+      },
+      //获取所有被选中的商品的数量总
+      getSelectedCount(state){
+        var nn={
+          num:0,
+          allPrices:0
+        };
+        state.car.forEach(item=>{
+          if(item.selected){
+            // console.log(item.count+'----'+item.price);
+             nn.num+=parseInt(item.count);
+             nn.allPrices+=parseInt(item.price) * parseInt(item.count)
+          }
+        })
+        return nn;
+      }
+  },
+})
+
 //想要使用moment插件来格式化时间,要先下载moment包,然后在这里引入
 import moment from "moment"
 //定义全局过滤器 格式化时间
@@ -39,19 +139,23 @@ import './lib/mui/css/mui.min.css'
 import './lib/mui/css/icons-extra.css'
 
 //引入mint-ui的Header部分需求,做头部Header
-import {Header, Swipe, SwipeItem,Button,Lazyload} from 'mint-ui'
+import {Header, Swipe, SwipeItem,Button,Lazyload,Switch} from 'mint-ui'
 Vue.component(Header.name,Header)
 //引入轮播图相关的需求
 Vue.component(Swipe.name, Swipe)
 Vue.component(SwipeItem.name, SwipeItem)
 Vue.component(Button.name, Button)
 Vue.use(Lazyload);
-
+Vue.component(Switch.name, Switch)
+// Vue.prototype.aaa='$router';
 import app from './App.vue'
 import router from './router.js'
-
 var vm=new Vue({
     el:'#app',
     render:c=>c(app),
-    router
+    router,
+    store,
+    created() {
+      // console.log(this.aaa)
+    },
 })

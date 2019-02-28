@@ -2,7 +2,7 @@
     <div class="app-container">
         <!-- 顶部Header区域 -->
         <mt-header fixed title="Vue项目">
-					<div slot="left" @click="fan" v-show="$route.path=='/home'?false:true">返回</div>
+					<div slot="left" @click="fan" v-show="$route.path=='/home'?false:true">&lt;返回</div>
 				</mt-header>
          <!-- v-show="$router.path=='home'?false:true" -->
         <!-- 中间content区域 -->
@@ -21,7 +21,7 @@
 			</router-link>
 			<router-link class="mui-tab-item-llb" to="/shopcar">
 				<span class="mui-icon mui-icon-extra mui-icon-extra-cart">
-					<span class="mui-badge">0</span>
+					<span class="mui-badge">{{ $store.getters.getAllCount }}</span>
 				</span>
 				<span class="mui-tab-label">购物车</span>
 			</router-link>

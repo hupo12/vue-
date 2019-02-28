@@ -60,7 +60,7 @@ export default {
           lunbotu:[],  //轮播图的信息
           goodsInfos:[],   //商品的所有的详细信息
           isflag:false, //小球是否显示的状态
-          selectedCount:1,
+          selectedCount:1, //选择商品的数量
       }
   },
   created(){
@@ -98,6 +98,15 @@ export default {
      //添加购物车按钮 的点击事件
      addGoods(){
          this.isflag=!this.isflag;
+         //点击加入购物车的时候先把商品的这些信息保存到一个对象中
+         var goodsDetail={
+             id:this.id,
+             count:this.selectedCount,
+             price:this.goodsInfos.sell_price ,
+             selected:true
+         }
+         this.$store.commit('addToCar',goodsDetail);
+        //  console.log(goodsDetail.count);
      },
      f1(el){
         el.style.transform="translate(0,0)";
@@ -106,7 +115,7 @@ export default {
          el.offsetWidth;
          //获取小球在页面距离浏览器的位置
          const ballPlace=this.$refs.balls.getBoundingClientRect();
-         console.log(ballPlace);
+        //  console.log(ballPlace);
          //购物车上数量的位置
          const huiPlace=document.querySelector('.mui-badge').getBoundingClientRect();
         // 计算 移动的距离
