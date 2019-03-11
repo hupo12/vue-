@@ -3,6 +3,22 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
+// 使用vue提供的懒加载的方法引入
+// import VueLazyload from 'vue-lazyload'
+// Vue.use(VueLazyload)
+// Vue.use(VueLazyload, {
+//   preLoad: 1.3,
+//   error: 'dist/error.png',
+//   loading: 'dist/loading.gif',
+//   attempt: 1
+// })
+
+// 使用axios方法请求数据的引入
+// import axios from "axios"
+// axios.defaults.baseURL="http://www.liulongbin.top:3005"
+// axios.defaults.headers.post['Content-Type']='application/x-www-form-urlencoded'
+// Vue.prototype.$http=axios
+
 // 注册vuex
 import Vuex from 'vuex'
 Vue.use(Vuex)
@@ -60,7 +76,7 @@ var store=new Vuex.Store({
         localStorage.setItem('car',JSON.stringify(state.car)); 
       }
   },
-  getters:{  //this.$store.getters.***
+  getters:{  //this.$store.getters.***  getters中不能修改state中的数据,只能获取使用
       getAllCount(state){
         var c=0;
         state.car.forEach(item=>{
@@ -114,7 +130,7 @@ Vue.filter('dataFormat',(datastr,pattern="YYYY-MM-DD HH:mm:ss")=>{
 import VueResource from "vue-resource"
 // 要使用vue-resource必须在引入之后再手动设置一下
 Vue.use(VueResource)
-//设置请求的根路径
+// 设置请求的根路径
 Vue.http.options.root = 'http://www.liulongbin.top:3005';
 Vue.http.options.emulateJSON = true;
 
@@ -156,6 +172,6 @@ var vm=new Vue({
     router,
     store,
     created() {
-      // console.log(this.aaa)
+     
     },
 })

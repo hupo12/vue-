@@ -13,7 +13,7 @@
         <!-- 图片列表 -->
         <ul class="photo-list">
             <router-link :to="'/home/photoInfo/'+item.id" tag="li" v-for="item in images" :key="item.id">
-                <img v-lazy="item.img_url" alt="">
+                <img v-lazy="item.img_url">
                 <div class="info">
                     <h1 class="info-title">{{ item.title }}</h1>
                     <div class="info-body">{{ item.zhaiyao }}</div>
@@ -47,7 +47,6 @@ export default {
         },
         getAllImages(id){
             this.$http.get('api/getimages/'+id).then(res=>{
-                console.log(res.body.message);
                 if(res.body.status==0){
                    this.images=res.body.message
                 }else{

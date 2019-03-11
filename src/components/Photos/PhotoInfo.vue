@@ -10,7 +10,7 @@
        <vue-preview :slides="list">
        </vue-preview>
        <!-- 图片的详情部分 -->
-       <div class="photoContent">{{ datasList.content }}</div>
+       <div class="photoContent" v-html="datasList.content"></div>
        <comment-vu :id="ids"></comment-vu>
     </div>
 </template>
@@ -33,7 +33,6 @@ export default {
       getAllInfomsg(){
           this.$http.get('api/getimageInfo/'+this.ids).then(res=>{
               if(res.body.status==0){
-                  console.log(res.body.message[0]);
                   this.datasList=res.body.message[0];
               }
           })
@@ -49,7 +48,6 @@ export default {
                   })
                   //将完整的数据保存到list中
                   this.list=res.body.message
-                  console.log(this.list);
               }
           })
       }

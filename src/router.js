@@ -32,6 +32,6 @@ var router=new VueRouter({
         {path:'/home/goodsComment/:id',component:GoodsComment,name:'goodsComment'},
 
     ],
-    linkActiveClass:'mui-active'
+    linkActiveClass:'mui-active',
 })
 export default router

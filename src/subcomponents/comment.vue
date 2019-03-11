@@ -52,7 +52,6 @@ export default {
                 return;
             }
             this.$http.post('api/postcomment/'+this.$route.params.id,{content:this.msg.trim()}).then(res=>{
-                // console.log(res.body);
                 if(res.body.status==0){
                     var str={
                         user_name:"匿名用户",
@@ -85,6 +84,7 @@ export default {
            margin-top: 5px;
            .cmt-item{
               font-size: 13px;
+              margin-top: 5px;
            .cmt-title{
               line-height: 30px;
               background-color: #ccc;

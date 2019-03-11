@@ -49,7 +49,6 @@ export default {
     methods:{
         getList(){
             this.$http.get('http://www.liulongbin.top:3005/api/getlunbo').then(result=>{
-                // console.log(result.body.message);
                 if(result.body.status==0){
                     this.dataArr=result.body.message
                 }else{
